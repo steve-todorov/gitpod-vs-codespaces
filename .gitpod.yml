@@ -1,0 +1,37 @@
+#image:
+#  file: .gitpod.Dockerfile
+
+tasks:
+#  - name: Setup database
+#    init: dblab init --environment-id "staging-db" --url https://db.host --token its-a-secret
+#    command: |
+#      existsId=$(dblab clone status ${clusterId} | jq -r '.id' || true)
+#      if [ "${existsId}" != "${clusterId}" ]
+#      then
+#        dblab clone create --id "${clusterId}" --db-name "${dbName}" --username "${devDbUser}" --password "its-a-secret"
+#      else
+#        dblab clone reset --latest "${clusterId}"
+#      fi
+#
+#      # SETUP JDBC URL IN PROPERTIES FILE
+
+  - init: | 
+      . /home/gitpod/.sdkman/bin/sdkman-init.sh
+      sdk install java 21.0.1-tem < /dev/null && 
+      gradle build
+    command: gradle bootRun
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+
+jetbrains:
+  intellij:
+    prebuilds:
+      version: stable
+    plugins:
+      - com.intellij.lang.jsgraphql
+
+ports:
+  - port: 8080
+    onOpen: open-browser
