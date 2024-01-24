@@ -9,16 +9,36 @@
     "ghcr.io/devcontainers/features/java:1": {
       "version": "none",
       "installMaven": "false",
-      "installGradle": "true"
+      "installGradle": "true",
+      "gradleVersion": "8.5",
     },
-    "ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {}
+    "ghcr.io/devcontainers/features/github-cli": {},
+    "ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {},
+    "ghcr.io/robbert229/devcontainer-features/postgresql-client:1" : {
+      "version": "15"
+    },
+    // Required for JetBrains Gateway
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [ 8080 ],
 
+  "hostRequirements": {
+    // A minimum of 4 cores is required for JetBrains gateway to work.
+    "cpus": 4
+  },
+
+  // This command is the first of three (along with updateContentCommand and postCreateCommand) that finalizes container
+  // setup when a dev container is created. It and subsequent commands execute inside the container immediately
+  // after it has started for the first time. Cloud services can use this command when caching or prebuilding a container.
+  // This means that it will not typically have access to user-scoped assets or secrets.
+  "onCreateCommand": "gradle dependencies",
+
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "/bin/bash ./.devcontainer/postSetup.sh",
+  "postCreateCommand": "gradle bootRun",
 
   // Configure tool-specific properties.
   "customizations": {
