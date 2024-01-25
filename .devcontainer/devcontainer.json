@@ -49,6 +49,17 @@
         "streetsidesoftware.code-spell-checker",
         "vscjava.vscode-java-pack"
       ]
+    },
+    // Configure properties specific to Codespaces.
+    "codespaces": {
+      "openFiles": [ "README" ],
+      "repositories": {
+        "steve-todorov/gitpod-vs-codespaces": {
+          "permissions": {
+            "actions": "write"
+          }
+        }
+      }
     }
   }
 
