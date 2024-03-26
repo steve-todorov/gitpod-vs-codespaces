@@ -1,0 +1,16 @@
+name: Test all events
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  # Add more events as needed
+  '*': # This matches all events
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Hello world"
